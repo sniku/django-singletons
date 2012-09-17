@@ -11,7 +11,8 @@ class SingletonModelAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         """ Singleton pattern: prevent addition of new objects """
         return False
-        
+
+    # This is not really esential, and it breaks in new versions of django.
     def get_urls(self):
         from django.conf.urls.defaults import patterns, url
 
@@ -30,10 +31,10 @@ class SingletonModelAdmin(admin.ModelAdmin):
             url(r'^$',
                 wrap(self.change_view),
                 {'object_id': '1'},
-                name='%s_%s_change' % info),
+                name='%s_%s_changelist' % info),
         )
         return urlpatterns
-        
+ 
     def response_change(self, request, obj):
         """
         Determines the HttpResponse for the change_view stage.
